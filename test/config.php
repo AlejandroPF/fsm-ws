@@ -23,6 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+define("DS",DIRECTORY_SEPARATOR);
 spl_autoload_register(function($class) {
     $CLASS_DIR = dirname(__DIR__) . "/common/class/";
     $CLASS_EXT = ".class.php";
@@ -36,3 +37,4 @@ spl_autoload_register(function($class) {
         include_once $file2;
     }
 });
+

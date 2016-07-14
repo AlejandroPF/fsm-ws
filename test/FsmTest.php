@@ -33,21 +33,114 @@ require_once 'config.php';
 class FsmTest extends PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @var \Fsm\Resource Resource
+     */
     private $resource;
+
+    /**
+     * @var \Fsm\DirectoryResource DirectoryResource
+     */
+    private $directory;
+
+    /**
+     * @var \Fsm\FileResource FileResource
+     */
+    private $file;
 
     public function setUp() {
         $this->resource = new Fsm\Resource(__DIR__);
-    }
-    /**
-     * @test
-     */
-    public function ResourceGetParentTest() {
-        $parent = $this->resource->getPath();
-        $this->assertTrue($parent == dirname(__DIR__));
+        $this->directory = new Fsm\DirectoryResource(__DIR__);
+        $this->file = new Fsm\FileResource(__FILE__);
     }
 
     public function tearDown() {
         
+    }
+
+    public function testResourceIsValid() {
+        $this->assertTrue($this->resource->isValid());
+    }
+
+    public function testResourceGetSource() {
+        $this->assertEquals(__DIR__, $this->resource->getSource());
+    }
+
+    /**
+     * @depends testResourceIsValid
+     */
+    public function testResourceGetPath() {
+        $this->assertEquals(dirname(__DIR__), $this->resource->getPath());
+        return $this->resource->getPath();
+    }
+
+    /**
+     * @depends testResourceGetPath
+     * @param string $path Path
+     */
+    public function testResourceGetParent($path) {
+        $this->assertEquals(new Fsm\Resource($path), $this->resource->getParent());
+    }
+
+    public function testDirectoryResourceIsValid() {
+        $this->assertTrue($this->directory->isValid());
+    }
+
+    /**
+     * @depends testDirectoryResourceIsValid
+     */
+    public function testDirectoryResourceGetFiles() {
+        $dir = dir(__DIR__);
+        $expectedFiles = [];
+        while ($entry = $dir->read()) {
+            if (is_file($entry)) {
+                $expectedFiles[] = __DIR__ . DS . $entry;
+            }
+        }
+        $dir->close();
+        $this->assertEquals($expectedFiles, $this->directory->getFiles());
+        return $expectedFiles;
+    }
+
+    /**
+     * @depends testDirectoryResourceGetFiles
+     * @param array $files Array de archivos
+     */
+    public function testDirectoryResourceGetFilesAsResource($files) {
+        $expectedFiles = [];
+        for ($index = 0; $index < count($files); $index++) {
+            $expectedFiles[$index] = new Fsm\FileResource($files[$index]);
+        }
+        $this->assertEquals($expectedFiles, $this->directory->getFilesAsResorce());
+    }
+
+    /**
+     * @depends testDirectoryResourceIsValid
+     */
+    public function testDirectoryResourceGetDirectories() {
+        $dir = dir(__DIR__);
+        $expectedDirectories = [];
+        $excluded = $this->directory->getExcludedResources();
+        while ($entry = $dir->read()) {
+            if (is_dir($entry) && !in_array($entry, $excluded)) {
+                $expectedDirectories[] = __DIR__ . DS . $entry;
+            }
+        }
+        $dir->close();
+        $this->assertEquals($expectedDirectories, $this->directory->getDirectoriesAsResource());
+        return $expectedDirectories;
+    }
+
+    /**
+     * @depends testDirectoryResourceGetDirectories
+     * @param array $directories Array de directorios
+     */
+    public function testDirectoryResourceGetDirectoriesAsResource($directories) {
+        $expectedDirectories = [];
+        for ($index = 0; $index < count($directories); $index++) {
+            $expectedDirectories[$index] = new Fsm\DirectoryResource($directories[$index]);
+        }
+        $this->assertEquals($expectedDirectories, $this->directory->getDirectoriesAsResource());
     }
 
 }
