@@ -34,8 +34,71 @@ namespace Fsm;
 class FileResource extends Resource
 {
 
+    /**
+     * @var string Nombre del archivo
+     */
+    private $fileName;
+
+    /**
+     * @var string Nombre del archivo sin extensión
+     */
+    private $name;
+
+    /**
+     * @var string Extensión del archivo 
+     */
+    private $extension;
+
     public function __construct($source) {
         parent::__construct($source);
+        if (is_file($source)) {
+            $this->catchData();
+        } else {
+            $this->setValid(false);
+        }
     }
-    
+
+    /**
+     * Recopila todos los datos de la clase
+     */
+    private function catchData() {
+        $source = $this->getSource();
+        $explode = explode(DS, $source);
+        // Obtiene el archivo
+        $file = $explode[count($explode) - 1];
+        $this->fileName = $file;
+        $explode = explode(".", $file);
+        //Obtiene la extensión del archivo
+        if (count($explode) > 1) {
+            $this->extension = $explode[count($explode) - 1];
+            //Quita la extensión del array
+            array_pop($explode);
+        }
+        $this->name = implode(".", $explode);
+    }
+
+    /**
+     * Obtiene el nombre del archivo
+     * @return string Nombre del archivo
+     */
+    function getFileName() {
+        return $this->fileName;
+    }
+
+    /**
+     * Obtiene el nombre del archivo sin extensión
+     * @return string Nombre del archivo (sin extensión)
+     */
+    function getName() {
+        return $this->name;
+    }
+
+    /**
+     * Obtiene la extensión del archivo
+     * @return string Extensión del archivo
+     */
+    function getExtension() {
+        return $this->extension;
+    }
+
 }
