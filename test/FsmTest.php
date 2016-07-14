@@ -143,4 +143,39 @@ class FsmTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDirectories, $this->directory->getDirectoriesAsResource());
     }
 
+    public function testFileResourceIsValid() {
+        $this->assertTrue($this->file->isValid());
+    }
+
+    /**
+     * @depends testFileResourceIsValid
+     */
+    public function testFileResourceGetFileName() {
+        $explode = explode(DS, __FILE__);
+        $expectedFileName = $explode[count($explode) - 1];
+        $this->assertEquals($expectedFileName, $this->file->getFileName());
+        return $expectedFileName;
+    }
+
+    /**
+     * @depends testFileResourceGetFileName
+     * @param string $fileName File Name
+     */
+    public function testFileResourceGetName($fileName) {
+        $explode = explode(".", $fileName);
+        array_pop($explode);
+        $expectedName = implode(".", $explode);
+        $this->assertEquals($expectedName, $this->file->getName());
+    }
+
+    /**
+     * @depends testFileResourceGetFileName
+     * @param string $fileName File Name
+     */
+    public function testFileResourceGetExtension($fileName) {
+        $explode = explode(".", $fileName);
+        $expectedExtension = count($explode) > 1 ? $explode[count($explode) - 1] : null;
+        $this->assertEquals($expectedExtension, $this->file->getExtension());
+    }
+
 }
