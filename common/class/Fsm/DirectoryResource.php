@@ -56,7 +56,7 @@ class DirectoryResource extends Resource
      * Capta los archivos y directorios
      */
     private function catchFilesAndDirectories() {
-        $dir = dir($this->getPath());
+        $dir = dir($this->getSource());
         // Obtiene un elemento del directorio
         while ($entry = $dir->read()) {
             $resource = $dir->path . DS . $entry;

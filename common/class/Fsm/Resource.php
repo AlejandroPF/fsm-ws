@@ -83,7 +83,13 @@ class Resource
     public function isValid() {
         return $this->validResource;
     }
-
+    /**
+     * Obtiene la ruta del recurso
+     * @return string Ruta del recurso
+     */
+    public function getSource(){
+        return $this->source;
+    }
     /**
      * Obtiene el path del recurso
      * @return string Path del recurso
