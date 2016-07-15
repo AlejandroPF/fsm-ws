@@ -38,6 +38,7 @@ class DirectoryResource extends Resource
      * @var array Contiene los subdirectorios del directorio
      */
     private $directories;
+    private $removeSourcePathFromResources = true;
 
     /**
      * Constructor
@@ -45,31 +46,14 @@ class DirectoryResource extends Resource
      */
     public function __construct($source) {
         parent::__construct($source);
-        if (is_dir($source)) {
-            $this->catchFilesAndDirectories();
-        } else {
+        if (!is_dir($source)) {
             $this->setValid(false);
         }
     }
 
-    /**
-     * Capta los archivos y directorios
-     */
-    private function catchFilesAndDirectories() {
-        $dir = dir($this->getSource());
-        // Obtiene un elemento del directorio
-        while ($entry = $dir->read()) {
-            $resource = $dir->path . DS . $entry;
-            // Si no se trata de un recurso excluido
-            if (!in_array($entry, $this->getExcludedResources())) {
-
-                if (is_file($resource)) { // Si es archivo
-                    $this->files[] = $resource;
-                } else if (is_dir($resource)) { // Si es directorio
-                    $this->directories[] = $resource;
-                }
-            }
-        }
+    public function removeSourcePathFromResources($boolean) {
+        $this->removeSourcePathFromResources = $boolean;
+        return $this;
     }
 
     /**
@@ -77,7 +61,30 @@ class DirectoryResource extends Resource
      * @return array Archivos
      */
     public function getFiles() {
-        return $this->files;
+        $output = [];
+        if ($this->isValid()) {
+            $dir = dir($this->getSource());
+            // Obtiene un elemento del directorio
+            while ($entry = $dir->read()) {
+                $resource = $dir->path . DS . $entry;
+                // Si no se trata de un recurso excluido
+                if (!in_array($entry, $this->getExcludedResources())) {
+                    if (is_file($resource)) { // Si es archivo
+                        if ($this->removeSourcePathFromResources) {
+                            $output[] = str_replace($this->getSource(), "", $resource);
+                        } else {
+                            $output[] = $resource;
+                        }
+                    }
+                }
+            }
+        } else {
+            $output = null;
+        }
+        $output = array_map(function($element) {
+            return str_replace(DS, "/", $element);
+        }, $output);
+        return $output;
     }
 
     /**
@@ -93,6 +100,37 @@ class DirectoryResource extends Resource
     }
 
     /**
+     * Obtiene los subdirectorios del directorio
+     * @return array Directorios
+     */
+    public function getDirectories() {
+        $output = [];
+        if ($this->isValid()) {
+            $dir = dir($this->getSource());
+            // Obtiene un elemento del directorio
+            while ($entry = $dir->read()) {
+                $resource = $dir->path . DS . $entry;
+                // Si no se trata de un recurso excluido
+                if (!in_array($entry, $this->getExcludedResources())) {
+                    if (is_dir($resource)) { // Si es archivo
+                        if ($this->removeSourcePathFromResources) {
+                            $output[] = str_replace($this->getSource(), "", $resource);
+                        } else {
+                            $output[] = $resource;
+                        }
+                    }
+                }
+            }
+        } else {
+            $output = null;
+        }
+        $output = array_map(function($element) {
+            return str_replace(DS, "/", $element);
+        }, $output);
+        return $output;
+    }
+
+    /**
      * Obtiene los subdirectorios del directorio como instancia de la clase \Fsm\DirectoryResource
      * @return \Fsm\DirectoryResource Conjunto de directorios
      */
@@ -102,14 +140,6 @@ class DirectoryResource extends Resource
             $output[$index] = new DirectoryResource($this->directories[$index]);
         }
         return $output;
-    }
-
-    /**
-     * Obtiene los subdirectorios del directorio
-     * @return array Directorios
-     */
-    public function getDirectories() {
-        return $this->directories;
     }
 
 }
