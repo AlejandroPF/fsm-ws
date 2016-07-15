@@ -4,6 +4,7 @@ require_once "config.php";
 
 use Slim\Http\Request as Request;
 use Slim\Http\Response as Response;
+
 /**
  * Hanlder for "Not allowed" response code (HTTP 405)
  */
@@ -42,13 +43,12 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
     $path = $args['path'] != "" ? $args['path'] : "/";
-    if (is_dir($config->source . $path)) {
-        $dir = dir($config->source . $path);
-        $resources = [];
-        while ($file = $dir->read()) {
-            $resources[] = $file;
-        }
-        $apiResponse->setAll(false, $resources);
+    $directory = new \Fsm\DirectoryResource($config->source . $path);
+    $currentPath = str_replace($config->source, "", $directory->getSource());
+    if ($directory->isValid()) {
+        $files = $directory->getFiles();
+        $subdirs = $directory->getDirectories();
+        $apiResponse->setAll(false, ["path" => $currentPath, "files" => $files, "directories" => $subdirs]);
     }
     $api->setResponse($apiResponse);
     return $api->get();
@@ -56,7 +56,23 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
 $app->map(["get", "post"], "/upload/{file:.*}", function (Request $request, Response $response, $args) use($app, $config) {
     //todo Upload $file
 });
-$app->map(["get","post"],"/download/{file:.*}",function (Request $request, Response $response, $args) use($app, $config) {
-   //todo Download $file 
+$app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Response $response, $args) use($app, $config) {
+    $api = new Api\Api($app, $request, $response);
+    $apiResponse = new Api\Response;
+    $path = $args['path'] != "" ? $args['path'] : "/";
+    $file = new Fsm\FileResource($path);
+    if ($file->isValid()) {
+        // DOWNLOAD FILE!
+        header("Content-type: application/octet-stream");
+        header('Pragma: no-cache');
+        header('Content-Disposition: attachment; filename=' . $file->getFileName());
+        header("Content-Transfer-Encoding: binary");
+        readfile($config->source . $path);
+        die();
+    } else {
+        $apiResponse = Api\Response::create(Api\ResponseCodes::NOT_FOUND, "File not found");
+    }
+    $api->setResponse($apiResponse);
+    return $api->get();
 });
 $app->run();
