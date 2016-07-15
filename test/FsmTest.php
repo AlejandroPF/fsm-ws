@@ -52,6 +52,7 @@ class FsmTest extends PHPUnit_Framework_TestCase
         $this->resource = new Fsm\Resource(__DIR__);
         $this->directory = new Fsm\DirectoryResource(__DIR__);
         $this->file = new Fsm\FileResource(__FILE__);
+        $this->directory->removeSourcePathFromResources(false);
     }
 
     public function tearDown() {
@@ -97,6 +98,9 @@ class FsmTest extends PHPUnit_Framework_TestCase
                 $expectedFiles[] = __DIR__ . DS . $entry;
             }
         }
+        $expectedFiles = array_map(function($element) {
+            return str_replace(DS, "/", $element);
+        }, $expectedFiles);
         $dir->close();
         $this->assertEquals($expectedFiles, $this->directory->getFiles());
         return $expectedFiles;
