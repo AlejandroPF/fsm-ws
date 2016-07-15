@@ -93,9 +93,16 @@ class DirectoryResource extends Resource
      */
     public function getFilesAsResorce() {
         $output = [];
-        for ($index = 0; $index < count($this->files); $index++) {
-            $output[$index] = new FileResource($this->files[$index]);
+        // Para crear los recursos correctamente necesitamos la ruta absoluta
+        // del fichero, para ello prevenimos que la función $this->getFiles
+        // devuelva los ficheros con ruta absoluta
+        $oldValue = $this->removeSourcePathFromResources;
+        $this->removeSourcePathFromResources = false;
+        $files = $this->getFiles();
+        for ($index = 0; $index < count($files); $index++) {
+            $output[$index] = new FileResource($files[$index]);
         }
+        $this->removeSourcePathFromResources = $oldValue;
         return $output;
     }
 
@@ -136,9 +143,17 @@ class DirectoryResource extends Resource
      */
     public function getDirectoriesAsResource() {
         $output = [];
-        for ($index = 0; $index < count($this->directories); $index++) {
-            $output[$index] = new DirectoryResource($this->directories[$index]);
+        // Para crear los recursos correctamente necesitamos la ruta absoluta
+        // del fichero, para ello prevenimos que la función $this->getDirectories
+        // devuelva los directorios con ruta absoluta
+        $oldValue = $this->removeSourcePathFromResources;
+        $this->removeSourcePathFromResources = false;
+        $directories = $this->getDirectories();
+        for ($index = 0; $index < count($directories); $index++) {
+            $output[$index] = new DirectoryResource($directories[$index]);
         }
+        // Volvemos a 'dejar todo como estaba'
+        $this->removeSourcePathFromResources = $oldValue;
         return $output;
     }
 
