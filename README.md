@@ -1,19 +1,20 @@
-Problemas con CORS
-------------------
+# ERRORES
+## Problemas con CORS
 
 Chrome lanza una peticion OPTIONS antes de la petición POST, si el servicio web no acepta OPTIONS este falla.
 http://stackoverflow.com/questions/33660712/angularjs-post-fails-response-for-preflight-has-invalid-http-status-code-404
 
-Problema con Angular, $http y enviar datos por post
-----------------------------------------------------
+***
+
+## Problema con Angular, $http y enviar datos por post
 
 http://stackoverflow.com/questions/19254029/angularjs-http-post-does-not-send-data
 
 Utiliza un Content-Type application/json en vez de x-www-form-urlencoded. Por lo que los parámetros los envia con un json escritos en el body de la petición.
+
 Desde angular, para prevenir esto:
 
 ```javascript
-
 app.config(['$httpProvider', function ($httpProvider) {
       
         $httpProvider.defaults.headers.common = {};
@@ -62,3 +63,9 @@ app.config(['$httpProvider', function ($httpProvider) {
        
     }]);
 ```
+### Solución
+
+Modificar desde lado del servidor para que acepte application/json y parsear los parámetros leyendo el body del request
+
+***
+
