@@ -36,7 +36,7 @@ $configuration = [
  */
 $app = new Slim\App($configuration);
 
-$app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app, $config) {
+$app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
     $api->verifyRequiredParams("user", "password");
     $apiResponse = new Api\Response;
@@ -45,7 +45,7 @@ $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Respo
     if (\Fsm\UserManager::authenticate($user, $password)) {
         $jwt = new JWTManager();
         $jwt->set("usr", $user);
-        $jwt->set("pwd", encrypt($password, $config->SALT));
+        $jwt->set("pwd", encrypt($password, \WebConfig::SALT));
         $apiResponse->setAll(false, $jwt->getToken());
     } else {
         $apiResponse->setAll(true, "Fallo de autenticación");
@@ -53,12 +53,12 @@ $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Respo
     $api->setResponse($apiResponse);
     $api->get();
 });
-$app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Response $response, $args) use($app, $config) {
+$app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
     $path = $args['path'] != "" ? $args['path'] : "/";
-    $directory = new \Fsm\DirectoryResource($config->source . $path);
-    $currentPath = str_replace($config->source, "", $directory->getSource());
+    $directory = new \Fsm\DirectoryResource(WebConfig::SOURCE . $path);
+    $currentPath = str_replace(WebConfig::SOURCE, "", $directory->getSource());
     if ($directory->isValid()) {
         $files = $directory->getFiles();
         $subdirs = $directory->getDirectories();
@@ -67,10 +67,10 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
     $api->setResponse($apiResponse);
     return $api->get();
 });
-$app->map(["get", "post"], "/upload/{file:.*}", function (Request $request, Response $response, $args) use($app, $config) {
+$app->map(["get", "post"], "/upload/{file:.*}", function (Request $request, Response $response, $args) use($app) {
     //todo Upload $file
 });
-$app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Response $response, $args) use($app, $config) {
+$app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
     $path = $args['path'] != "" ? $args['path'] : "/";
@@ -81,7 +81,7 @@ $app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Re
         header('Pragma: no-cache');
         header('Content-Disposition: attachment; filename=' . $file->getFileName());
         header("Content-Transfer-Encoding: binary");
-        readfile($config->source . $path);
+        readfile(WebConfig::SOURCE . $path);
         die();
     } else {
         $apiResponse = Api\Response::create(Api\ResponseCodes::NOT_FOUND, "File not found");

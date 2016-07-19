@@ -40,19 +40,6 @@ class UserManager
     private static $usersFile = COMMON . "users.json";
 
     /**
-     * @var \stdClass Configuración de la aplicación
-     */
-    private static $appConfig;
-
-    /**
-     * Constructor. Asigna la configuración de la aplicación para ámbito estático
-     * @param \stdClass $config Configuración de la aplicación
-     */
-    public function __construct($config) {
-        self::$appConfig = $config;
-    }
-
-    /**
      * Busca un usuario.
      * 
      * @param string $userName Nombre del usuario
@@ -87,7 +74,7 @@ class UserManager
         $output = false;
         $dbUser = self::findUser($user);
         if ($dbUser) {
-            $output = $encrypted ? ($password === $dbUser->getPassword()) : (encrypt($password, self::$appConfig->SALT) === $dbUser->getPassword());
+            $output = $encrypted ? ($password === $dbUser->getPassword()) : (encrypt($password, \WebConfig::SALT) === $dbUser->getPassword());
         }
         return $output;
     }
