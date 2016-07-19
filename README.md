@@ -4,6 +4,19 @@
 Chrome lanza una peticion OPTIONS antes de la petición POST, si el servicio web no acepta OPTIONS este falla.
 http://stackoverflow.com/questions/33660712/angularjs-post-fails-response-for-preflight-has-invalid-http-status-code-404
 
+Se pueden modificar las cabeceras por defecto para evitar que haga la petición OPTIONS.
+```javascript
+app.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.common = {};
+        $httpProvider.defaults.headers.post = {};
+        $httpProvider.defaults.headers.put = {};
+        $httpProvider.defaults.headers.patch = {};
+  }]);
+```
+
+### Solución
+Agregar ruta OPTIONS para cualquier pattern enviando una respuesta vacía (por defecto) con el Content-type recibido de la petición
+
 ***
 
 ## Problema con Angular, $http y enviar datos por post

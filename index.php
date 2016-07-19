@@ -36,6 +36,7 @@ $configuration = [
  */
 $app = new Slim\App($configuration);
 $app->options("/{p:.*}", function (Request $request, Response $response, $args) {
+    $response = $response->withHeader("Content-type", $request->getHeader("Content-type"));
     return $response;
 });
 $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app) {
