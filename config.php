@@ -29,7 +29,15 @@ spl_autoload_register(function($class) {
         include_once $file2;
     }
 });
+// Add common file
+require_once COMMON . "common.php";
 // Add JWT autoload
 require_once COMMON . "class/jwt/vendor/autoload.php";
 // Add Slim autoload
 require_once COMMON . "class/slim/vendor/autoload.php";
+// Web config as stdClass object
+$config = new stdClass();
+// Source
+$config->source = ROOT;
+$config->SALT = "P85J-=x%pii~l@og82VixH|r\$I-wv\$SpSaDpN_n8icfZ1En_*q1ssch~)ny-[Ogk";
+new \Fsm\UserManager($config);

@@ -35,10 +35,24 @@ $configuration = [
  * Slim\App instance
  */
 $app = new Slim\App($configuration);
-// Web config as stdClass object
-$config = new stdClass();
-// Source
-$config->source = ROOT;
+
+$app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app, $config) {
+    $api = new Api\Api($app, $request, $response);
+    $api->verifyRequiredParams("user", "password");
+    $apiResponse = new Api\Response;
+    $user = $api->param("user");
+    $password = $api->param("password");
+    if (\Fsm\UserManager::authenticate($user, $password)) {
+        $jwt = new JWTManager();
+        $jwt->set("usr", $user);
+        $jwt->set("pwd", encrypt($password, $config->SALT));
+        $apiResponse->setAll(false, $jwt->getToken());
+    } else {
+        $apiResponse->setAll(true, "Fallo de autenticación");
+    }
+    $api->setResponse($apiResponse);
+    $api->get();
+});
 $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Response $response, $args) use($app, $config) {
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
