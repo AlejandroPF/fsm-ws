@@ -35,7 +35,9 @@ $configuration = [
  * Slim\App instance
  */
 $app = new Slim\App($configuration);
-
+$app->options("/{p:.*}", function (Request $request, Response $response, $args) {
+    return $response;
+});
 $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
     $api->verifyRequiredParams("user", "password");
@@ -48,7 +50,7 @@ $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Respo
         $jwt->set("pwd", encrypt($password, \WebConfig::SALT));
         $apiResponse->setAll(false, $jwt->getToken());
     } else {
-        $apiResponse->setAll(true, "Fallo de autenticación");
+        $apiResponse = Api\Response::create(Api\ResponseCodes::UNAUTHORIZED, "Credenciales no validas");
     }
     $api->setResponse($apiResponse);
     $api->get();
