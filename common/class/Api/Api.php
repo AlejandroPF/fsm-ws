@@ -126,7 +126,7 @@ class Api
         // Obtiene los argumentos pasados a la función
         $requiredParams = func_get_args();
         // Obtiene los parámetros pasados a la petición HTTP (independientemente del método)
-        $httpParams = $this->httpRequest->getParams();
+        $httpParams = $this->parameters;
         // Guarda los parámetros necesarios no pasados
         $parametersNeeded = [];
         $error = false;
@@ -148,11 +148,16 @@ class Api
             $this->stopApp($this->get());
         }
     }
-
+    public function getParams(){
+        return $this->parameters;
+    }
     /**
      * Obtiene los parámetros
      */
     public function parseParameters() {
+        if(strpos($this->httpRequest->getContentType(),"json")!== false){
+            $this->parameters = json_decode($this->httpRequest->getBody()->read(10240));
+        }
         $this->parameters = $this->httpRequest->getParams();
     }
 
