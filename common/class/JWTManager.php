@@ -43,7 +43,7 @@ class JWTManager
     /**
      * @var string Clave secreta para generar el hash
      */
-    private static $secret = "e5F6Wz67FslO2tmHap5kIAMbMmBeqLg7";
+    private static $secret = "bnNc8QkBfZsq8XESnu3PQebBOIIYjByX";
     /**
      * Constructor
      */
