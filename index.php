@@ -41,11 +41,28 @@ $app->options("/{p:.*}", function (Request $request, Response $response, $args) 
 });
 $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
-    $api->verifyRequiredParams("user", "password");
+    $user = $api->param("user", null);
+    $password = $api->param("password", null);
     $apiResponse = new Api\Response;
-    $user = $api->param("user");
-    $password = $api->param("password");
-    if (\Fsm\UserManager::authenticate($user, $password)) {
+    $token = $api->param("token", null);
+    $encrypted = false;
+    if (null === $token || empty(trim($token))) {
+        $api->verifyRequiredParams("user", "password");
+        $user = $api->param("user");
+        $password = $api->param("password");
+    } else {
+        try {
+            $jwt = JWTManager::createFromToken($token);
+            $user = $jwt->get("usr");
+            $password = $jwt->get("pwd");
+            $encrypted = true;
+        } catch (Exception $ex) {
+            $apiResponse = Api\Response::create(Api\ResponseCodes::UNAUTHORIZED, "Token no válido");
+            $api->setResponse($apiResponse);
+            return $api->get();
+        }
+    }
+    if (\Fsm\UserManager::authenticate($user, $password,$encrypted)) {
         $jwt = new JWTManager();
         $jwt->set("usr", $user);
         $jwt->set("pwd", encrypt($password, \WebConfig::SALT));
