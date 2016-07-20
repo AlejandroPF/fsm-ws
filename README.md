@@ -82,3 +82,13 @@ Modificar desde lado del servidor para que acepte application/json y parsear los
 
 ***
 
+## Problema con rutas de Angular que no permiten expresiones regulares
+
+Para navegar por el sistema de ficheros es necesario que la URI admita como parámetro una ruta, por lo que era necesario usar una expresión regular o que el parámetro de la ruta de Angular admitiese cualquier caracter.
+
+http://stackoverflow.com/questions/27633195/angularjs-route-parameters-with-any-characters
+
+### Solución
+
+En la ruta se puede especificar que el parámetro admita cualquier caracter poniendo un asterisco (*) después del parámetro.
+Para que el parámetro sea opcional se especifica con un interrogante (?) después del parámetro
