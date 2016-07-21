@@ -23,6 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace Api;
 
 /**
@@ -71,6 +72,7 @@ class Response
         $this->error = $error;
         return $this;
     }
+
     /**
      * Establece la respuesta de la petición
      * @param mixed $response Respuesta de la petición
@@ -80,6 +82,7 @@ class Response
         $this->response = $response;
         return $this;
     }
+
     /**
      * Crea una instancia a partir de un código de respuesta.
      * @param int $responseCode Código de respuesta
@@ -128,6 +131,22 @@ class Response
         }
         $output = new Response($error, $response);
         return $output;
+    }
+
+    /**
+     * Obtiene si se ha producido un error
+     * @return boolean 
+     */
+    public function getError() {
+        return $this->error;
+    }
+
+    /**
+     * Obtiene la respuesta
+     * @return mixed Respuesta
+     */
+    public function getResponse() {
+        return $this->response;
     }
 
     public function __toString() {
