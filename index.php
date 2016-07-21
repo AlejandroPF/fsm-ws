@@ -31,10 +31,34 @@ $configuration = [
     'notAllowedHandler' => $notAllowedHandler,
     'notFoundHandler' => $notFoundHandler,
 ];
+
 /**
  * Slim\App instance
  */
 $app = new Slim\App($configuration);
+
+$authenticateToken = function($request, $response, $next) use($app) {
+    $api = new Api\Api($app, $request, $response);
+    $api->verifyRequiredParams("token");
+    $apiResponse = new Api\Response;
+    $token = $api->param("token");
+    try {
+        $jwt = JWTManager::createFromToken($token);
+        $usr = $jwt->get("usr");
+        $pwd = $jwt->get("pwd");
+        if (\Fsm\UserManager::authenticate($usr, $pwd, true)) {
+            $apiResponse->setAll(false, $jwt->getToken());
+        }
+    } catch (Exception $ex) {
+        $apiResponse->setAll(true, "Invalid token");
+    }
+    $api->setResponse($apiResponse);
+    if ($apiResponse->getError()) {
+        return $api->get();
+    } else {
+        return $next($request, $response);
+    }
+};
 $app->options("/{p:.*}", function (Request $request, Response $response, $args) {
     $response = $response->withHeader("Content-type", $request->getHeader("Content-type"));
     return $response;
@@ -62,7 +86,7 @@ $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Respo
             return $api->get();
         }
     }
-    if (\Fsm\UserManager::authenticate($user, $password,$encrypted)) {
+    if (\Fsm\UserManager::authenticate($user, $password, $encrypted)) {
         $jwt = new JWTManager();
         $jwt->set("usr", $user);
         $jwt->set("pwd", encrypt($password, \WebConfig::SALT));
@@ -86,9 +110,9 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
     }
     $api->setResponse($apiResponse);
     return $api->get();
-});
+})->add($authenticateToken); // AGREGA AUTENTICACIÓN VIA TOKEN
 $app->map(["get", "post"], "/upload/{file:.*}", function (Request $request, Response $response, $args) use($app) {
-    //todo Upload $file
+//todo Upload $file
 });
 $app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
@@ -96,7 +120,7 @@ $app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Re
     $path = $args['path'] != "" ? $args['path'] : "/";
     $file = new Fsm\FileResource($path);
     if ($file->isValid()) {
-        // DOWNLOAD FILE!
+// DOWNLOAD FILE!
         header("Content-type: application/octet-stream");
         header('Pragma: no-cache');
         header('Content-Disposition: attachment; filename=' . $file->getFileName());
