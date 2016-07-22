@@ -1,3 +1,6 @@
+# REQUIRE
+- php_fileinfo.dll
+
 # ERRORES
 ## Problemas con CORS
 

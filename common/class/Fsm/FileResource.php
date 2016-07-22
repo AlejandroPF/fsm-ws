@@ -81,7 +81,7 @@ class FileResource extends Resource
      * Obtiene el nombre del archivo
      * @return string Nombre del archivo
      */
-    function getFileName() {
+    public function getFileName() {
         return $this->fileName;
     }
 
@@ -89,7 +89,7 @@ class FileResource extends Resource
      * Obtiene el nombre del archivo sin extensión
      * @return string Nombre del archivo (sin extensión)
      */
-    function getName() {
+    public function getName() {
         return $this->name;
     }
 
@@ -97,7 +97,7 @@ class FileResource extends Resource
      * Obtiene la extensión del archivo
      * @return string Extensión del archivo
      */
-    function getExtension() {
+    public function getExtension() {
         return $this->extension;
     }
 

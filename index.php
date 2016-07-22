@@ -113,6 +113,32 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
     $api->setResponse($apiResponse);
     return $api->get();
 })->add($authenticateToken); // AGREGA AUTENTICACIÓN VIA TOKEN
+$app->map(["get", "post"], "/info/[{path:.*}]", function (Request $request, Response $response, $args) use($app) {
+    $api = new Api\Api($app, $request, $response);
+    if (!isset($args['path'])) {
+        $args['path'] = "/";
+    }
+    $file = new \Fsm\FileResource(WebConfig::SOURCE . $args['path']);
+    $apiResponse = new Api\Response;
+    if ($file->isValid()) {
+        $output['name'] = $file->getFileName();
+        $output['size'] = filesize($file->getSource());
+        $output['lastUpdate'] = date(WebConfig::DATE_FORMAT, filemtime($file->getSource()));
+        $apiResponse->setAll(false, $output);
+    } else {
+        $dir = new \Fsm\DirectoryResource(WebConfig::SOURCE . $args["path"]);
+        if ($dir->isValid()) {
+            $output['name'] = $dir->getSource();
+            $output['size'] = filesize($dir->getSource());
+            $output['lastUpdate'] = date(WebConfig::DATE_FORMAT, filemtime($file->getSource()));
+            $apiResponse->setAll(false, $output);
+        } else {
+            $apiResponse = Api\Response::create(Api\ResponseCodes::NOT_FOUND, "Archivo o directorio no encontrado");
+        }
+    }
+    $api->setResponse($apiResponse);
+    return $api->get();
+})->add($authenticateToken);
 $app->map(["get", "post"], "/upload/{file:.*}", function (Request $request, Response $response, $args) use($app) {
 //todo Upload $file
 });
