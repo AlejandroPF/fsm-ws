@@ -107,6 +107,8 @@ $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Respo
         $files = $directory->getFiles();
         $subdirs = $directory->getDirectories();
         $apiResponse->setAll(false, ["path" => $currentPath, "files" => $files, "directories" => $subdirs]);
+    } else {
+        $apiResponse = Api\Response::create(Api\ResponseCodes::NOT_FOUND, "Directorio no encontrado");
     }
     $api->setResponse($apiResponse);
     return $api->get();

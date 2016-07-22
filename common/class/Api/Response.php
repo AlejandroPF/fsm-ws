@@ -150,7 +150,7 @@ class Response
     }
 
     public function __toString() {
-        return json_encode(array("error" => (boolean) $this->error, "response" => $this->response));
+        return json_encode(array("error" => (boolean) $this->error, "response" => $this->response),JSON_UNESCAPED_UNICODE);
     }
 
 }

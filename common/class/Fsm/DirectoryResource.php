@@ -71,9 +71,9 @@ class DirectoryResource extends Resource
                 if (!in_array($entry, $this->getExcludedResources())) {
                     if (is_file($resource)) { // Si es archivo
                         if ($this->removeSourcePathFromResources) {
-                            $output[] = str_replace($this->getSource(), "", $resource);
+                            $output[] = utf8_encode(str_replace($this->getSource(), "", $resource));
                         } else {
-                            $output[] = $resource;
+                            $output[] = utf8_encode($resource);
                         }
                     }
                 }
@@ -121,9 +121,9 @@ class DirectoryResource extends Resource
                 if (!in_array($entry, $this->getExcludedResources())) {
                     if (is_dir($resource)) { // Si es archivo
                         if ($this->removeSourcePathFromResources) {
-                            $output[] = str_replace($this->getSource(), "", $resource);
+                            $output[] = utf8_encode(str_replace($this->getSource(), "", $resource));
                         } else {
-                            $output[] = $resource;
+                            $output[] = utf8_encode($resource);
                         }
                     }
                 }

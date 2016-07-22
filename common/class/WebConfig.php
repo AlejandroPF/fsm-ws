@@ -31,6 +31,8 @@
  */
 class WebConfig
 {
+
     const SALT = "P85J-=x%pii~l@og82VixH|r\$I-wv\$SpSaDpN_n8icfZ1En_*q1ssch~)ny-[Ogk";
-    const SOURCE = ROOT;
+    const SOURCE = "C:\\ftp\\";
+
 }
