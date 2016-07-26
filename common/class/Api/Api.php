@@ -63,7 +63,7 @@ class Api
         $this->app = $app;
         $this->httpRequest = $httpRequest;
         $this->httpResponse = $httpResponse;
-        $this->setHeader("Content-Type", "application/json; charset=UTF-8");
+        $this->setHeader("Content-Type", "application/json;charset=utf-8");
         $this->parseParameters();
     }
 
@@ -148,14 +148,16 @@ class Api
             $this->stopApp($this->get());
         }
     }
-    public function getParams(){
+
+    public function getParams() {
         return $this->parameters;
     }
+
     /**
      * Obtiene los parámetros
      */
     public function parseParameters() {
-        if(strpos($this->httpRequest->getContentType(),"json")!== false){
+        if (strpos($this->httpRequest->getContentType(), "json") !== false) {
             $this->parameters = json_decode($this->httpRequest->getBody()->read(10240));
         }
         $this->parameters = $this->httpRequest->getParams();

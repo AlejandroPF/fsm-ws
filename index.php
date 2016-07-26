@@ -95,7 +95,7 @@ $app->map(["get", "post"], "/authenticate[/]", function (Request $request, Respo
         $apiResponse = Api\Response::create(Api\ResponseCodes::UNAUTHORIZED, "Credenciales no validas");
     }
     $api->setResponse($apiResponse);
-    $api->get();
+    return $api->get();
 });
 $app->map(["get", "post"], "/files/{path:.*}", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
@@ -124,6 +124,8 @@ $app->map(["get", "post"], "/info/[{path:.*}]", function (Request $request, Resp
         $output['name'] = $file->getFileName();
         $output['size'] = filesize($file->getSource());
         $output['lastUpdate'] = date(WebConfig::DATE_FORMAT, filemtime($file->getSource()));
+        $encodedSource = substr($file->getSource(), strlen(WebConfig::SOURCE));
+        $output['download'] = "http://" . $_SERVER['SERVER_NAME'] . "/download/" . $encodedSource;
         $apiResponse->setAll(false, $output);
     } else {
         $dir = new \Fsm\DirectoryResource(WebConfig::SOURCE . $args["path"]);
@@ -146,9 +148,9 @@ $app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Re
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
     $path = $args['path'] != "" ? $args['path'] : "/";
-    $file = new Fsm\FileResource($path);
+    $file = new Fsm\FileResource(WebConfig::SOURCE . $path);
     if ($file->isValid()) {
-// DOWNLOAD FILE!
+        // DOWNLOAD FILE!
         header("Content-type: application/octet-stream");
         header('Pragma: no-cache');
         header('Content-Disposition: attachment; filename=' . $file->getFileName());
