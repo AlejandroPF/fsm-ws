@@ -61,7 +61,7 @@ class Resource
     public function __construct($source) {
         if (is_file($source) || is_dir($source)) {
             $this->validResource = true;
-            $this->source = $source;
+            $this->source = str_replace("\\",DS,str_replace("/", DS, $source));
             $this->path = dirname($source);
         }
     }

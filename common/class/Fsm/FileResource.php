@@ -51,7 +51,7 @@ class FileResource extends Resource
 
     public function __construct($source) {
         parent::__construct($source);
-        if (is_file($source)) {
+        if (is_file($this->getSource())) {
             $this->catchData();
         } else {
             $this->setValid(false);
