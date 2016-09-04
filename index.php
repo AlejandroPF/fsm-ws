@@ -172,7 +172,7 @@ $app->map(["get", "post"], "/download/{path:.*}", function (Request $request, Re
     }
     $api->setResponse($apiResponse);
     return $api->get();
-})->add($authenticateToken); // AGREGA AUTENTICACIÓN VIA TOKEN
+});
 $app->map(["get", "post"], "/delete/{path:.*}", function (Request $request, Response $response, $args) use($app) {
     $api = new Api\Api($app, $request, $response);
     $apiResponse = new Api\Response;
