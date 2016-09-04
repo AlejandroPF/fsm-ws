@@ -32,6 +32,7 @@
  */
 class JWTManager
 {
+
     /**
      * @var array Elementos a guardar en el Token
      */
@@ -44,6 +45,7 @@ class JWTManager
      * @var string Clave secreta para generar el hash
      */
     private static $secret = "bnNc8QkBfZsq8XESnu3PQebBOIIYjByX";
+
     /**
      * Constructor
      */
@@ -53,16 +55,34 @@ class JWTManager
         $this->set("exp", time() + 60 * 60 * 24 * 365 * 5); // Agrega 5 años
     }
 
+    /**
+     * Establece todos los elementos
+     * @param array $array Conjunto de elementos clave => valor
+     */
     public function setAll($array) {
         $this->elements = $array;
     }
 
+    /**
+     * Establece un elemento
+     * @param string $name Clave
+     * @param string $value Valor
+     */
     public function set($name, $value) {
         $this->elements[$name] = $value;
     }
 
+    /**
+     * Obtiene un elemento
+     * @param string $name Clave
+     * @return string Valor del elemento o NULL si no existe
+     */
     public function get($name) {
-        return $this->elements[$name];
+        $output = null;
+        if (isset($this->elements[$name])) {
+            $output = $this->elements[$name];
+        }
+        return $output;
     }
 
     /**

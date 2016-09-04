@@ -26,6 +26,11 @@
 
 namespace Fsm;
 
+/**
+ * Clase DirectoryResource para el manejo de directorios
+ *
+ * @author Alejandro Peña Florentín (alejandropenaflorentin@gmail.com)
+ */
 class DirectoryResource extends Resource
 {
 
@@ -50,7 +55,11 @@ class DirectoryResource extends Resource
             $this->setValid(false);
         }
     }
-
+    /**
+     * Elimina el directorio raíz de las rutas de los recursos
+     * @param boolean $boolean Valor
+     * @return \Fsm\DirectoryResource Fluent setter
+     */
     public function removeSourcePathFromResources($boolean) {
         $this->removeSourcePathFromResources = $boolean;
         return $this;
@@ -155,6 +164,13 @@ class DirectoryResource extends Resource
         // Volvemos a 'dejar todo como estaba'
         $this->removeSourcePathFromResources = $oldValue;
         return $output;
+    }
+    /**
+     * Obtiene si el recurso está vacío
+     * @return boolean TRUE en caso de que esté vacío
+     */
+    public function isEmpty() {
+        return (count($this->getDirectories()) == 0 && count($this->getFiles()) == 0);
     }
 
 }

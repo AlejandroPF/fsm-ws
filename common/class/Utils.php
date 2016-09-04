@@ -25,32 +25,56 @@
  */
 
 /**
- * WebConfig para la configuración del proyecto web
+ * Clase Utils con utilidades
  *
  * @author Alejandro Peña Florentín (alejandropenaflorentin@gmail.com)
  */
-class WebConfig
+class Utils
 {
 
     /**
-     * Clave de encriptación
+     * Comprueba si existe un directorio
+     * @param string $dir Nombre del directorio
+     * @return boolean TRUE en caso de éxito
      */
-    const SALT = "P85J-=x%pii~l@og82VixH|r\$I-wv\$SpSaDpN_n8icfZ1En_*q1ssch~)ny-[Ogk";
+    public static function directoryExists($dir) {
+        return is_dir($dir);
+    }
 
     /**
-     * @var string Directorio base del sistema de ficheros
+     * Agrega el 'trailing slash' a un path
+     * @param string $path Path
+     * @return string Path con trailing slash
      */
-    public static $SOURCE = "C:\\";
+    public static function addTrailingSlash($path) {
+        if (substr($path, strlen($path) - 1) != "/") {
+            $path .= "/";
+        }
+        return $path;
+    }
 
     /**
-     * @var string Formato de fecha por defecto
+     * Serializa los objetos de un array
+     * @param array $array Array
+     * @return array Array con objetos serializados
      */
-    public static $DATE_FORMAT = "d/m/Y H:i:s";
+    public static function serializeArray($array) {
+        for ($index = 0; $index < count($array); $index++) {
+            $array[$index] = serialize($array[$index]);
+        }
+        return $array;
+    }
 
-    public static function parseIniFile($file) {
-        $config = parse_ini_file($file);
-        self::$SOURCE = \Utils::addTrailingSlash($config['source']);
-        self::$DATE_FORMAT = $config['dateFormat'];
+    /**
+     * Des-serializa los elementos de un array en objetos
+     * @param array $array Array serializado
+     * @return array Array con objetos
+     */
+    public static function unserializeArray($array) {
+        for ($index = 0; $index < count($array); $index++) {
+            $array[$index] = unserialize($array[$index]);
+        }
+        return $array;
     }
 
 }

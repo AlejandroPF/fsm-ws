@@ -78,6 +78,31 @@ class UserManager
         }
         return $output;
     }
+    /**
+     * Guarda al nuevo usuario o modifica el que ya existe
+     * @param \Fsm\User $newUser Usuario
+     */
+    public static function saveUser(User $newUser) {
+        // Checks if user already exists
+        $users = self::getUsers();
+        $index = 0;
+        $size = count($users);
+        $found = false;
+        while ($index < $size && $found === FALSE) {
+            $obj = unserialize($users[$index]);
+            if ($obj->getName() == $newUser->getName()) {
+                $found = $index;
+            } else {
+                $index++;
+            }
+        }
+        if ($found !== FALSE) {
+            $users[$index] = serialize($newUser);
+        } else {
+            array_push($users, serialize($newUser));
+        }
+        file_put_contents(self::$usersFile, json_encode($users));
+    }
 
     /**
      * Obtiene todos los usuarios
@@ -86,5 +111,45 @@ class UserManager
     public static function getUsers() {
         return json_decode(file_get_contents(self::$usersFile));
     }
-
+    /**
+     * Obtiene todos los usuarios como un array de \Fsm\User
+     * @return array Conjunto de usuarios
+     */
+    public static function getUsersAsObject() {
+        $users = self::getUsers();
+        $size = count($users);
+        for ($index = 0; $index < $size; $index++) {
+            $users[$index] = unserialize($users[$index]);
+        }
+        return $users;
+    }
+    /**
+     * Elimina a un usuario en función de su nombre
+     * @param string $userName Nombre de usuario
+     * @return boolean TRUE en caso de éxito
+     */
+    public static function deleteUser($userName) {
+        $output = false;
+        // Checks if user already exists
+        $users = self::getUsersAsObject();
+        $index = 0;
+        $size = count($users);
+        $found = false;
+        while ($index < $size && $found === FALSE) {
+            if ($users[$index]->getName() == $userName) {
+                $found = $index;
+            } else {
+                $index++;
+            }
+        }
+        if ($found !== FALSE) {
+            unset($users[$found]);
+            sort($users);
+            $fileContent = \Utils::serializeArray($users);
+            file_put_contents(self::$usersFile, json_encode($fileContent));
+            $output = true;
+        } 
+        return $output;
+    }
+    
 }

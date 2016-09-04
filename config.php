@@ -35,3 +35,5 @@ require_once COMMON . "common.php";
 require_once COMMON . "class/jwt/vendor/autoload.php";
 // Add Slim autoload
 require_once COMMON . "class/slim/vendor/autoload.php";
+
+WebConfig::parseIniFile("config.ini");

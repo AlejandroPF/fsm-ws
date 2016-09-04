@@ -27,7 +27,7 @@
 namespace Fsm;
 
 /**
- * Description of FileResource
+ * Clase FileResource para el manejo de archivos
  *
  * @author Alejandro Peña Florentín (alejandropenaflorentin@gmail.com)
  */

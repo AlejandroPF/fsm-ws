@@ -27,7 +27,7 @@
 namespace Fsm;
 
 /**
- * Description of Resource
+ * Clase Resource
  *
  * @author Alejandro Peña Florentín (alejandropenaflorentin@gmail.com)
  */
