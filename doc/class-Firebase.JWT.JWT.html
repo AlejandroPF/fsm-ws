@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Firebase\JWT\JWT | fsm-ws.dev</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-Api.html">
+						Api					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Composer.html">
+						Composer<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Composer.Autoload.html">
+						Autoload					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-FastRoute.html">
+						FastRoute<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-FastRoute.DataGenerator.html">
+						DataGenerator					</a>
+
+						</li>
+				<li>
+					<a href="namespace-FastRoute.Dispatcher.html">
+						Dispatcher					</a>
+
+						</li>
+				<li>
+					<a href="namespace-FastRoute.RouteParser.html">
+						RouteParser					</a>
+
+						</li>
+							</ul></li>
+				<li class="active">
+					<a href="namespace-Firebase.html">
+						Firebase<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Firebase.JWT.html">
+						JWT					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Fsm.html">
+						Fsm					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Interop.html">
+						Interop<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Interop.Container.html">
+						Container<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Interop.Container.Exception.html">
+						Exception					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Pimple.html">
+						Pimple<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Pimple.Tests.html">
+						Tests<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Pimple.Tests.Fixtures.html">
+						Fixtures					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Psr.html">
+						Psr<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Psr.Http.html">
+						Http<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Psr.Http.Message.html">
+						Message					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-Slim.html">
+						Slim<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Slim.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Slim.Handlers.html">
+						Handlers<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Slim.Handlers.Strategies.html">
+						Strategies					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Slim.Http.html">
+						Http					</a>
+
+						</li>
+				<li>
+					<a href="namespace-Slim.Interfaces.html">
+						Interfaces<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Slim.Interfaces.Http.html">
+						Http					</a>
+
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Firebase.JWT.JWT.html">JWT</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Firebase.JWT.BeforeValidException.html">BeforeValidException</a></li>
+				<li><a href="class-Firebase.JWT.ExpiredException.html">ExpiredException</a></li>
+				<li><a href="class-Firebase.JWT.SignatureInvalidException.html">SignatureInvalidException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Firebase.JWT.html" title="Summary of Firebase\JWT"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class JWT</h1>
+
+
+	<div class="description">
+	<p>JSON Web Token implementation, based on this spec:
+http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-06</p>
+
+<p>PHP version 5</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Firebase.html">Firebase</a>\<a href="namespace-Firebase.JWT.html">JWT</a><br>
+		<b>Package:</b> Authentication\JWT<br>
+
+				<b>Category:</b>
+				Authentication<br>
+				<b>License:</b>
+				<a href="http://opensource.org/licenses/BSD-3-Clause">3-clause BSD</a><br>
+				<b>Author:</b>
+				Neuman Vong <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x6e;&#x65;&#117;&#109;&#x61;&#x6e;&#64;&#116;&#x77;&#x69;&#108;i&#x6f;&#46;&#99;o&#x6d;">&#x6e;&#x65;&#117;&#109;&#x61;&#x6e;&#64;&#116;&#x77;&#x69;&#108;i&#x6f;&#46;&#99;o&#x6d;</a><br>
+				<b>Author:</b>
+				Anant Narayanan <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#97;&#x6e;&#97;&#110;&#x74;&#64;&#112;&#x68;&#112;.&#x6e;&#101;&#x74;">&#97;&#x6e;&#97;&#110;&#x74;&#64;&#112;&#x68;&#112;.&#x6e;&#101;&#x74;</a><br>
+				<b>Used by:</b>
+				<code><a href="class-JWTManager.html">JWTManager</a></code> Clase de implementación de JSON Web Token<br>
+				<b>Link:</b>
+				<a href="https://github.com/firebase/php-jwt">https://github.com/firebase/php-jwt</a><br>
+			<b>Located at</b> <a href="source-class-Firebase.JWT.JWT.html#9-357" title="Go to source code">common/class/jwt/vendor/firebase/php-jwt/src/JWT.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="decode" id="_decode">
+
+		<td class="attributes"><code>
+			 public static
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_decode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#39-123" title="Go to source code">decode</a>( <span>string <var>$jwt</var></span>, <span>string|array|null <var>$key</var></span>, <span>array <var>$allowed_algs</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>Decodes a JWT string into a PHP object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Decodes a JWT string into a PHP object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$jwt</var></dt>
+					<dd>The JWT</dd>
+					<dt><var>$key</var></dt>
+					<dd><p>The key, or map of keys.
+                                         If the algorithm used is asymmetric, this is the public key</p></dd>
+					<dt><var>$allowed_algs</var></dt>
+					<dd><p>List of supported verification algorithms
+                                         Supported algorithms are 'HS256', 'HS384', 'HS512' and 'RS256'</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object<br>The JWT's payload as a PHP object
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-DomainException.html">DomainException</a></code><br>Algorithm was not provided<br>
+					<code><a href="class-UnexpectedValueException.html">UnexpectedValueException</a></code><br>Provided JWT was invalid<br>
+					<code><a href="class-Firebase.JWT.SignatureInvalidException.html">Firebase\JWT\SignatureInvalidException</a></code><br>Provided JWT was invalid because the signature verification failed<br>
+					<code><a href="class-Firebase.JWT.BeforeValidException.html">Firebase\JWT\BeforeValidException</a></code><br>Provided JWT is trying to be used before it's eligible as defined by 'nbf'<br>
+					<code><a href="class-Firebase.JWT.BeforeValidException.html">Firebase\JWT\BeforeValidException</a></code><br>Provided JWT is trying to be used before it's been created as defined by 'iat'<br>
+					<code><a href="class-Firebase.JWT.ExpiredException.html">Firebase\JWT\ExpiredException</a></code><br>Provided JWT has since expired, as defined by the 'exp' claim
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_jsonDecode">Firebase\JWT\JWT::jsonDecode()</a></code><br>
+						<code><a href="class-Firebase.JWT.JWT.html#_urlsafeB64Decode">Firebase\JWT\JWT::urlsafeB64Decode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="encode" id="_encode">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_encode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#125-158" title="Go to source code">encode</a>( <span>object|array <var>$payload</var></span>, <span>string <var>$key</var></span>, <span>string <var>$alg</var> = <span class="php-quote">'HS256'</span></span>, <span>array <var>$keyId</var> = <span class="php-keyword1">null</span></span>, <span> <var>$head</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Converts and signs a PHP object or array into a JWT string.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Converts and signs a PHP object or array into a JWT string.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$payload</var></dt>
+					<dd>PHP object or array</dd>
+					<dt><var>$key</var></dt>
+					<dd><p>The secret key.
+                                 If the algorithm used is asymmetric, this is the private key</p></dd>
+					<dt><var>$alg</var></dt>
+					<dd><p>The signing algorithm.
+                                 Supported algorithms are 'HS256', 'HS384', 'HS512' and 'RS256'</p></dd>
+					<dt><var>$keyId</var></dt>
+					<dd>$head       An array with header elements to attach</dd>
+					<dt><var>$head</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>A signed JWT
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_jsonEncode">Firebase\JWT\JWT::jsonEncode()</a></code><br>
+						<code><a href="class-Firebase.JWT.JWT.html#_urlsafeB64Encode">Firebase\JWT\JWT::urlsafeB64Encode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sign" id="_sign">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sign">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#160-190" title="Go to source code">sign</a>( <span>string <var>$msg</var></span>, <span>string|resource <var>$key</var></span>, <span>string <var>$alg</var> = <span class="php-quote">'HS256'</span></span> )</code>
+
+		<div class="description short">
+			<p>Sign a string with a given key and algorithm.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sign a string with a given key and algorithm.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$msg</var></dt>
+					<dd>The message to sign</dd>
+					<dt><var>$key</var></dt>
+					<dd>The secret key</dd>
+					<dt><var>$alg</var></dt>
+					<dd><p>The signing algorithm.
+                                 Supported algorithms are 'HS256', 'HS384', 'HS512' and 'RS256'</p></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>An encrypted message
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-DomainException.html">DomainException</a></code><br>Unsupported algorithm was specified
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="jsonDecode" id="_jsonDecode">
+
+		<td class="attributes"><code>
+			 public static
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_jsonDecode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#238-271" title="Go to source code">jsonDecode</a>( <span>string <var>$input</var></span> )</code>
+
+		<div class="description short">
+			<p>Decode a JSON string into a PHP object.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Decode a JSON string into a PHP object.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd>JSON string</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					object<br>Object representation of JSON string
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-DomainException.html">DomainException</a></code><br>Provided string was invalid JSON
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_decode">Firebase\JWT\JWT::decode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="jsonEncode" id="_jsonEncode">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_jsonEncode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#273-291" title="Go to source code">jsonEncode</a>( <span>object|array <var>$input</var></span> )</code>
+
+		<div class="description short">
+			<p>Encode a PHP object into a JSON string.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Encode a PHP object into a JSON string.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd>A PHP object or array</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>JSON representation of the PHP object or array
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-DomainException.html">DomainException</a></code><br>Provided object could not be encoded to valid JSON
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_encode">Firebase\JWT\JWT::encode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="urlsafeB64Decode" id="_urlsafeB64Decode">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_urlsafeB64Decode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#293-308" title="Go to source code">urlsafeB64Decode</a>( <span>string <var>$input</var></span> )</code>
+
+		<div class="description short">
+			<p>Decode a string with URL-safe Base64.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Decode a string with URL-safe Base64.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd>A Base64 encoded string</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>A decoded string
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_decode">Firebase\JWT\JWT::decode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="urlsafeB64Encode" id="_urlsafeB64Encode">
+
+		<td class="attributes"><code>
+			 public static
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_urlsafeB64Encode">#</a>
+		<code><a href="source-class-Firebase.JWT.JWT.html#310-320" title="Go to source code">urlsafeB64Encode</a>( <span>string <var>$input</var></span> )</code>
+
+		<div class="description short">
+			<p>Encode a string with URL-safe Base64.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Encode a string with URL-safe Base64.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$input</var></dt>
+					<dd>The string you want encoded</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>The base64 encode of what you passed in
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><a href="class-Firebase.JWT.JWT.html#_encode">Firebase\JWT\JWT::encode()</a></code><br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="leeway" id="$leeway">
+		<td class="attributes"><code>
+			public static 
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Firebase.JWT.JWT.html#25-30" title="Go to source code"><var>$leeway</var></a>
+
+			<div class="description short">
+				<p>When checking nbf, iat or expiration times,
+we want to provide some extra leeway time to
+account for clock skew.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>When checking nbf, iat or expiration times,
+we want to provide some extra leeway time to
+account for clock skew.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$leeway" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="supported_algs" id="$supported_algs">
+		<td class="attributes"><code>
+			public static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Firebase.JWT.JWT.html#32-37" title="Go to source code"><var>$supported_algs</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$supported_algs" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'HS256'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'hash_hmac'</span>, <span class="php-quote">'SHA256'</span>),
+    <span class="php-quote">'HS512'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'hash_hmac'</span>, <span class="php-quote">'SHA512'</span>),
+    <span class="php-quote">'HS384'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'hash_hmac'</span>, <span class="php-quote">'SHA384'</span>),
+    <span class="php-quote">'RS256'</span> =&gt; <span class="php-keyword1">array</span>(<span class="php-quote">'openssl'</span>, <span class="php-quote">'SHA256'</span>),
+)</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		fsm-ws.dev API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
